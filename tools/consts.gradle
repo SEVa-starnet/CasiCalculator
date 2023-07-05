@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.ajoberstar:grgit:1.9.3'
+    }
+}
+
+import org.ajoberstar.grgit.Grgit
+
+
+ext{
+    minSdkVersion = 27
+    compileSdkVersion = 33
+    targetSdkVersion = 33
+
+    git = Grgit.open(currentDir: projectDir)
+    gitVersionName =  git.describe()  // git describe --tags
+
+    //versions const
+    def codeVersion = git.log().size() // git rev-list --count HEAD
+    versionName = gitVersionName
+    versionCode = codeVersion
+
+    androidXCoreVersion = "1.10.0"
+    glideVersion = "4.13.2"
+    splashScreenVersion = "1.0.0"
+    navComponentVerson = "2.5.3"
+    koinVersion= "3.3.2"
+    retrofitVersion = "2.9.0"
+    gsonVersion = "2.9.0"
+    okHttpVersion = "4.10.0"
+    recyclerViewVersion = "1.3.0"
+    materialVersion = "1.8.0"
+    workVersion = "2.8.0"
+    zxingVersion = "3.5.1"
+    firebaseCrashlyticsVersionktx = "18.3.6"
+    firebaseAnalyticsVersionktx = "21.2.2"
+    firebaseAuthVersionktx = "21.3.0"
+    firebaseDatabaseVersionktx = "20.2.0"
+    lifecycle_version = "2.6.1"
+}

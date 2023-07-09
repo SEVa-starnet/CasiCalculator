@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.toMutableStateList
 import com.seva.starnet.casicalculator.common.base.BaseViewModel
 import com.seva.starnet.casicalculator.domain.GetButtonsUseCase
-import com.seva.starnet.casicalculator.model.ButtonId
 import com.seva.starnet.casicalculator.model.ButtonModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 class MainActivityViewModel : BaseViewModel() {
 
@@ -17,13 +14,17 @@ class MainActivityViewModel : BaseViewModel() {
     var uIState = buttonModels.toMutableStateList()
 
     fun newClick(buttonModel: ButtonModel) {
-        uIState[getId(buttonModel = buttonModel)] = uIState[getId(buttonModel = buttonModel)].copy(clicks = uIState[getId(buttonModel)].clicks +1)
-        buttonModels[getId(buttonModel = buttonModel)].clicks++
-        proceedPercents()
+        updateButton(buttonModels.indexOf(buttonModel) , buttonModel.clicks + 1, buttonModel.percent + 0.5)
     }
 
-    private fun getId(buttonModel: ButtonModel): Int {
-        return buttonModels.indexOf(buttonModel)
+    private fun updateButton(id: Int, clicks: Int, percent: Double) {
+        uIState[id] = uIState[id].copy(
+            clicks = clicks,
+            percent = percent
+        )
+        buttonModels[id].clicks = clicks
+        buttonModels[id].percent = percent
+        proceedPercents()
     }
 
     private fun proceedPercents() {

@@ -234,6 +234,10 @@ class MainActivity : ComponentActivity() {
                     text = buttonModel.clicks.toString(),
                     color = textColor
                 )
+                Text(
+                    text = buttonModel.percent.toString(),
+                    color = textColor
+                )
             }
         }
     }

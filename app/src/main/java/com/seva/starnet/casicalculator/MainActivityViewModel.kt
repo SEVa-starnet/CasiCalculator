@@ -97,11 +97,51 @@ class MainActivityViewModel : BaseViewModel() {
     }
 
     private fun proceedBlackRed(buttonModel: ButtonModel?) {
+        buttonModel?.let {
+            when (buttonModel.buttonId.value) {
+                1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36 -> {
+                    // red clicked
+                    localListShot!![45].clicks++
+                }
 
+                2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35 -> {
+                    // black clicked
+                    localListShot!![46].clicks++
+                }
+            }
+            return@let
+        }
+
+        updatePercents(
+            listOf(
+                localListShot!![45],
+                localListShot!![46]
+            )
+        )
     }
 
     private fun proceedOddEven(buttonModel: ButtonModel?) {
+        buttonModel?.let {
+            when (buttonModel.buttonId.value) {
+                2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36 -> {
+                    // even clicked
+                    localListShot!![43].clicks++
+                }
 
+                1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35 -> {
+                    // odd clicked
+                    localListShot!![44].clicks++
+                }
+            }
+            return@let
+        }
+
+        updatePercents(
+            listOf(
+                localListShot!![43],
+                localListShot!![44]
+            )
+        )
     }
 
     private fun proceedNumbers(buttonModel: ButtonModel?) {

@@ -12,9 +12,17 @@ class MainActivityViewModel : BaseViewModel() {
 
     private var buttonModels = loadButtons()
     var uIState = buttonModels.toMutableStateList()
+    private var localListShot: MutableList<ButtonModel>? = null
 
     fun newClick(buttonModel: ButtonModel) {
-        updateButton(buttonModels.indexOf(buttonModel) , buttonModel.clicks + 1, buttonModel.percent + 0.5)
+        localListShot = mutableListOf()
+        for (button in buttonModels) {
+            localListShot!!.add(button.copy())
+        }
+        proceedPercents(buttonModel)
+        for (i in 0 until localListShot!!.size) {
+            updateButton(i, localListShot!![i].clicks, localListShot!![i].percent)
+        }
     }
 
     private fun updateButton(id: Int, clicks: Int, percent: Double) {
@@ -24,39 +32,54 @@ class MainActivityViewModel : BaseViewModel() {
         )
         buttonModels[id].clicks = clicks
         buttonModels[id].percent = percent
-        proceedPercents()
     }
 
-    private fun proceedPercents() {
-        proceedFirsSecondSector()
-        proceedFirstSecondThirdRow()
-        proceedFirstSecondThirdSector()
-        proceedBlackRed()
-        proceedOddEven()
-        proceedNumbers()
+    private fun proceedPercents(buttonModel: ButtonModel?) {
+        proceedFirsSecondSector(buttonModel)
+        proceedFirstSecondThirdRow(buttonModel)
+        proceedFirstSecondThirdSector(buttonModel)
+        proceedBlackRed(buttonModel)
+        proceedOddEven(buttonModel)
+        proceedNumbers(buttonModel)
     }
 
-    private fun proceedFirsSecondSector() {
+    private fun proceedFirsSecondSector(buttonModel: ButtonModel?) {
+        Log.d("===", "proceedFirsSecondSector() called with: buttonModel = $buttonModel")
+        buttonModel?.let {
+            if (it.buttonId.value < 19) {
+                // first sector clicked
+                localListShot!![41].clicks++
+            } else {
+                // second sector clicked
+                localListShot!![42].clicks++
+            }
+        }
+
+        updatePercents(
+            listOf(
+                localListShot!![41],
+                localListShot!![42]
+            )
+        )
+    }
+
+    private fun proceedFirstSecondThirdRow(buttonModel: ButtonModel?) {
 
     }
 
-    private fun proceedFirstSecondThirdRow() {
+    private fun proceedFirstSecondThirdSector(buttonModel: ButtonModel?) {
 
     }
 
-    private fun proceedFirstSecondThirdSector() {
+    private fun proceedBlackRed(buttonModel: ButtonModel?) {
 
     }
 
-    private fun proceedBlackRed() {
+    private fun proceedOddEven(buttonModel: ButtonModel?) {
 
     }
 
-    private fun proceedOddEven() {
-
-    }
-
-    private fun proceedNumbers() {
+    private fun proceedNumbers(buttonModel: ButtonModel?) {
 
     }
 
@@ -70,13 +93,19 @@ class MainActivityViewModel : BaseViewModel() {
         val skipPercent: Double = 100.0 / fullAmountOfSkips
 
         for (button in buttons) {
-            val skipAmount = fullAmountOfClicks - button.clicks
+            val skipAmount = fullAmountOfClicks - button.clicks + 1
             val percent = skipAmount * skipPercent
             button.percent = percent
         }
     }
 
     private fun loadButtons(): MutableList<ButtonModel> {
-        return getButtonsUseCase.getButtons()
+        val buttons = getButtonsUseCase.getButtons()
+        localListShot = mutableListOf()
+        for (button in buttons) {
+            localListShot!!.add(button.copy())
+        }
+        proceedPercents(null)
+        return localListShot!!
     }
 }

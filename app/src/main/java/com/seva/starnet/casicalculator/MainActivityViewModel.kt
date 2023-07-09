@@ -1,6 +1,5 @@
 package com.seva.starnet.casicalculator
 
-import android.util.Log
 import androidx.compose.runtime.toMutableStateList
 import com.seva.starnet.casicalculator.common.base.BaseViewModel
 import com.seva.starnet.casicalculator.domain.GetButtonsUseCase
@@ -48,10 +47,11 @@ class MainActivityViewModel : BaseViewModel() {
             if (it.buttonId.value < 19) {
                 // first sector clicked
                 localListShot!![41].clicks++
-            } else {
+            } else if (it.buttonId.value < 37) {
                 // second sector clicked
                 localListShot!![42].clicks++
             }
+            return@let
         }
 
         updatePercents(
@@ -63,7 +63,33 @@ class MainActivityViewModel : BaseViewModel() {
     }
 
     private fun proceedFirstSecondThirdRow(buttonModel: ButtonModel?) {
+        buttonModel?.let {
+            when (buttonModel.buttonId.value) {
+                3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 -> {
+                    // first row clicked
+                    localListShot!![47].clicks++
+                }
 
+                2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 -> {
+                    // second row clicked
+                    localListShot!![48].clicks++
+                }
+
+                1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 -> {
+                    // third row clicked
+                    localListShot!![49].clicks++
+                }
+            }
+            return@let
+        }
+
+        updatePercents(
+            listOf(
+                localListShot!![47],
+                localListShot!![48],
+                localListShot!![49]
+            )
+        )
     }
 
     private fun proceedFirstSecondThirdSector(buttonModel: ButtonModel?) {

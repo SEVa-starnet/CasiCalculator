@@ -23,6 +23,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Devices
@@ -35,6 +36,7 @@ import com.seva.starnet.casicalculator.model.ButtonColor
 import com.seva.starnet.casicalculator.model.ButtonId
 import com.seva.starnet.casicalculator.model.ButtonModel
 import com.seva.starnet.casicalculator.ui.theme.CasiCalculatorTheme
+import com.seva.starnet.casicalculator.ui.theme.DarkGreen
 
 class MainActivity : ComponentActivity() {
 
@@ -155,6 +157,46 @@ class MainActivity : ComponentActivity() {
                     MainNumber(buttonModel = buttons[30])
                     MainNumber(buttonModel = buttons[33])
                 }
+                Row() {// 1_12, 13_24, 25_36
+                    MainNumber(
+                        buttonModel = buttons[38],
+                        Modifier
+                            .width(230.dp)
+                    )
+                    MainNumber(
+                        buttonModel = buttons[39],
+                        Modifier
+                            .width(240.dp)
+                    )
+                    MainNumber(
+                        buttonModel = buttons[40],
+                        Modifier
+                            .width(230.dp)
+                    )
+                }
+
+                Row() {// even red black odd
+                    MainNumber(
+                        buttonModel = buttons[43],
+                        Modifier
+                            .width(175.dp)
+                    )
+                    MainNumber(
+                        buttonModel = buttons[45],
+                        Modifier
+                            .width(175.dp)
+                    )
+                    MainNumber(
+                        buttonModel = buttons[46],
+                        Modifier
+                            .width(175.dp)
+                    )
+                    MainNumber(
+                        buttonModel = buttons[44],
+                        Modifier
+                            .width(175.dp)
+                    )
+                }
             }
             Column(
                 modifier = Modifier
@@ -198,8 +240,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun MainNumber(buttonModel: ButtonModel, modifier: Modifier = Modifier) {
-        var backgroundColor = Color.White
-        var textColor = Color.Black
+        var backgroundColor = DarkGreen
+        var textColor = Color.White
         if (buttonModel.color == ButtonColor.BLACK) {
             backgroundColor = Color.Black
             textColor = Color.White
@@ -220,6 +262,7 @@ class MainActivity : ComponentActivity() {
             contentPadding = PaddingValues(0.dp)
         ) {
             Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = modifier
                     .padding(0.dp)
             ) {

@@ -1,6 +1,5 @@
 package com.seva.starnet.casicalculator.data
 
-import com.seva.starnet.casicalculator.model.ButtonModel
 import com.seva.starnet.casicalculator.model.ButtonColor
 import com.seva.starnet.casicalculator.model.ButtonId.BUTTON_0
 import com.seva.starnet.casicalculator.model.ButtonId.BUTTON_00
@@ -52,6 +51,7 @@ import com.seva.starnet.casicalculator.model.ButtonId.BUTTON_ODD
 import com.seva.starnet.casicalculator.model.ButtonId.BUTTON_RED
 import com.seva.starnet.casicalculator.model.ButtonId.BUTTON_SECOND_ROW
 import com.seva.starnet.casicalculator.model.ButtonId.BUTTON_THIRD_ROW
+import com.seva.starnet.casicalculator.model.ButtonModel
 
 class DataSource {
 
@@ -103,8 +103,8 @@ class DataSource {
             ButtonModel(buttonId = BUTTON_19_36),
             ButtonModel(buttonId = BUTTON_EVEN),
             ButtonModel(buttonId = BUTTON_ODD),
-            ButtonModel(buttonId = BUTTON_RED),
-            ButtonModel(buttonId = BUTTON_BLACK),
+            ButtonModel(buttonId = BUTTON_RED, color = ButtonColor.RED),
+            ButtonModel(buttonId = BUTTON_BLACK, color = ButtonColor.BLACK),
             ButtonModel(buttonId = BUTTON_FIRST_ROW),
             ButtonModel(buttonId = BUTTON_SECOND_ROW),
             ButtonModel(buttonId = BUTTON_THIRD_ROW)

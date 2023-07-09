@@ -1,10 +1,10 @@
 package com.seva.starnet.casicalculator
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -104,11 +104,13 @@ class MainActivity : ComponentActivity() {
                         buttonModel = buttons[41],
                         Modifier
                             .width(350.dp)
+                            .clickable(enabled = false) {}
                     ) // 1 to 18
                     MainNumber(
                         buttonModel = buttons[42],
                         Modifier
                             .width(350.dp)
+                            .clickable(enabled = false) {}
                     ) // 19 to 36
                 }
                 Row() { // first row
@@ -164,18 +166,21 @@ class MainActivity : ComponentActivity() {
                     Modifier
                         .width(80.dp)
                         .padding(start = 5.dp)
+                        .clickable(enabled = false) {}
                 ) // first row
                 MainNumber(
                     buttonModel = buttons[48],
                     Modifier
                         .width(80.dp)
                         .padding(start = 5.dp)
+                        .clickable(enabled = false) {}
                 ) // second row
                 MainNumber(
                     buttonModel = buttons[49],
                     Modifier
                         .width(80.dp)
                         .padding(start = 5.dp)
+                        .clickable(enabled = false) {}
                 ) //third row
             }
         }

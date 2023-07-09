@@ -44,7 +44,6 @@ class MainActivityViewModel : BaseViewModel() {
     }
 
     private fun proceedFirsSecondSector(buttonModel: ButtonModel?) {
-        Log.d("===", "proceedFirsSecondSector() called with: buttonModel = $buttonModel")
         buttonModel?.let {
             if (it.buttonId.value < 19) {
                 // first sector clicked

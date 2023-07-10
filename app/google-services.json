@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "437343046153",
+    "project_id": "casicalculator",
+    "storage_bucket": "casicalculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437343046153:android:d8462da0511e2133f206d8",
+        "android_client_info": {
+          "package_name": "com.seva.starnet.casiCalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437343046153-5n3agiflhiddbk23t5kpvrctc3vqecrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_u7aQmM9-1DVx4NLf_CIY-051d1rOZCg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437343046153-5n3agiflhiddbk23t5kpvrctc3vqecrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437343046153:android:83eabd57fcb5d613f206d8",
+        "android_client_info": {
+          "package_name": "com.seva.starnet.casiCalculator.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437343046153-5n3agiflhiddbk23t5kpvrctc3vqecrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_u7aQmM9-1DVx4NLf_CIY-051d1rOZCg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437343046153-5n3agiflhiddbk23t5kpvrctc3vqecrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

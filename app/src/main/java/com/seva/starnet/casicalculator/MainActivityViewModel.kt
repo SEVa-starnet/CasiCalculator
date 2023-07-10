@@ -171,7 +171,12 @@ class MainActivityViewModel : BaseViewModel() {
     }
 
     private fun proceedNumbers(buttonModel: ButtonModel?) {
-
+        buttonModel?.let {
+            localListShot!![buttonModel.buttonId.value - 1].clicks++
+        }
+        updatePercents(
+            localListShot!!.subList(0, 38)
+        )
     }
 
     private fun updatePercents(buttons: List<ButtonModel>) {

@@ -18,10 +18,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -81,188 +87,211 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun MainGrid(buttons: List<ButtonModel>) {
-        Row(
-            modifier = Modifier
-                .padding(start = 5.dp, end = 5.dp),
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                MainNumber(
-                    buttonModel = buttons[36],
-                    Modifier
-                        .height(80.dp)
-                ) // 0
-                MainNumber(
-                    buttonModel = buttons[37],
-                    Modifier
-                        .height(80.dp)
-                ) // 00
 
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
-            ) {
-                Row(
-                    modifier = Modifier,
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    MainNumber(
-                        buttonModel = buttons[41],
-                        Modifier
-                            .width(280.dp)
-                            .clickable(enabled = false) {}
-                    ) // 1 to 18
-                    MainNumber(
-                        buttonModel = buttons[42],
-                        Modifier
-                            .width(280.dp)
-                            .clickable(enabled = false) {}
-                    ) // 19 to 36
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) { // first row
-                    MainNumber(buttonModel = buttons[2])
-                    MainNumber(buttonModel = buttons[5])
-                    MainNumber(buttonModel = buttons[8])
-                    MainNumber(buttonModel = buttons[11])
-                    MainNumber(buttonModel = buttons[14])
-                    MainNumber(buttonModel = buttons[17])
-                    MainNumber(buttonModel = buttons[20])
-                    MainNumber(buttonModel = buttons[23])
-                    MainNumber(buttonModel = buttons[26])
-                    MainNumber(buttonModel = buttons[29])
-                    MainNumber(buttonModel = buttons[32])
-                    MainNumber(buttonModel = buttons[35])
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) { // second row
-                    MainNumber(buttonModel = buttons[1])
-                    MainNumber(buttonModel = buttons[4])
-                    MainNumber(buttonModel = buttons[7])
-                    MainNumber(buttonModel = buttons[10])
-                    MainNumber(buttonModel = buttons[13])
-                    MainNumber(buttonModel = buttons[16])
-                    MainNumber(buttonModel = buttons[19])
-                    MainNumber(buttonModel = buttons[22])
-                    MainNumber(buttonModel = buttons[25])
-                    MainNumber(buttonModel = buttons[28])
-                    MainNumber(buttonModel = buttons[31])
-                    MainNumber(buttonModel = buttons[34])
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) { // third row
-                    MainNumber(buttonModel = buttons[0])
-                    MainNumber(buttonModel = buttons[3])
-                    MainNumber(buttonModel = buttons[6])
-                    MainNumber(buttonModel = buttons[9])
-                    MainNumber(buttonModel = buttons[12])
-                    MainNumber(buttonModel = buttons[15])
-                    MainNumber(buttonModel = buttons[18])
-                    MainNumber(buttonModel = buttons[21])
-                    MainNumber(buttonModel = buttons[24])
-                    MainNumber(buttonModel = buttons[27])
-                    MainNumber(buttonModel = buttons[30])
-                    MainNumber(buttonModel = buttons[33])
-                }
-                Row() {// 1_12, 13_24, 25_36
-                    MainNumber(
-                        buttonModel = buttons[38],
-                        Modifier
-                            .width(180.dp)
-                    )
-                    MainNumber(
-                        buttonModel = buttons[39],
-                        Modifier
-                            .width(180.dp)
-                    )
-                    MainNumber(
-                        buttonModel = buttons[40],
-                        Modifier
-                            .width(180.dp)
-                    )
-                }
+        var showDialog by remember { mutableStateOf(false) }
 
-                Row() {// even red black odd
-                    MainNumber(
-                        buttonModel = buttons[43],
-                        Modifier
-                            .width(130.dp)
-                    )
-                    MainNumber(
-                        buttonModel = buttons[45],
-                        Modifier
-                            .width(130.dp)
-                    )
-                    MainNumber(
-                        buttonModel = buttons[46],
-                        Modifier
-                            .width(130.dp)
-                    )
-                    MainNumber(
-                        buttonModel = buttons[44],
-                        Modifier
-                            .width(130.dp)
-                    )
-                }
-            }
-            Column(
+        if (showDialog) {
+            AlertDialog(
+                onDismissRequest = { showDialog = false },
+                title = { Text("Are you sure you want to clear the information?") },
+                text = { Text("This action cannot be undone") },
+                confirmButton = {
+                    TextButton(onClick = {
+                        viewModel?.clearClick()
+                        showDialog = false
+                    }) {
+                        Text("Clear it".uppercase())
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDialog = false }) {
+                        Text("Cancel".uppercase())
+                    }
+                },
+            )
+        }
+            Row(
                 modifier = Modifier
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
+                    .padding(start = 5.dp, end = 5.dp),
             ) {
-                MainNumber(
-                    buttonModel = buttons[47],
-                    Modifier
-                        .width(80.dp)
-                        .padding(start = 5.dp)
-                        .clickable(enabled = false) {}
-                ) // first row
-                MainNumber(
-                    buttonModel = buttons[48],
-                    Modifier
-                        .width(80.dp)
-                        .padding(start = 5.dp)
-                        .clickable(enabled = false) {}
-                ) // second row
-                MainNumber(
-                    buttonModel = buttons[49],
-                    Modifier
-                        .width(80.dp)
-                        .padding(start = 5.dp)
-                        .clickable(enabled = false) {}
-                ) //third row
-                Box(
+                Column(
                     modifier = Modifier
-                        .clickable { viewModel?.clearClick() }
-                        .background(DarkGreen, RoundedCornerShape(20))
-                        .border(
-                            width = 2.dp,
-                            color = Color.White,
-                            shape = RoundedCornerShape(5.dp),
-                        )
-                        .padding(start = 8.dp, end = 8.dp)
-                        .wrapContentWidth()
-                        .width(80.dp)
-                        .height(40.dp)
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = "CLEAR",
-                        color = Color.White,
+                    MainNumber(
+                        buttonModel = buttons[36],
+                        Modifier
+                            .height(80.dp)
+                    ) // 0
+                    MainNumber(
+                        buttonModel = buttons[37],
+                        Modifier
+                            .height(80.dp)
+                    ) // 00
+
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Row(
+                        modifier = Modifier,
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        MainNumber(
+                            buttonModel = buttons[41],
+                            Modifier
+                                .width(280.dp)
+                                .clickable(enabled = false) {}
+                        ) // 1 to 18
+                        MainNumber(
+                            buttonModel = buttons[42],
+                            Modifier
+                                .width(280.dp)
+                                .clickable(enabled = false) {}
+                        ) // 19 to 36
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) { // first row
+                        MainNumber(buttonModel = buttons[2])
+                        MainNumber(buttonModel = buttons[5])
+                        MainNumber(buttonModel = buttons[8])
+                        MainNumber(buttonModel = buttons[11])
+                        MainNumber(buttonModel = buttons[14])
+                        MainNumber(buttonModel = buttons[17])
+                        MainNumber(buttonModel = buttons[20])
+                        MainNumber(buttonModel = buttons[23])
+                        MainNumber(buttonModel = buttons[26])
+                        MainNumber(buttonModel = buttons[29])
+                        MainNumber(buttonModel = buttons[32])
+                        MainNumber(buttonModel = buttons[35])
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) { // second row
+                        MainNumber(buttonModel = buttons[1])
+                        MainNumber(buttonModel = buttons[4])
+                        MainNumber(buttonModel = buttons[7])
+                        MainNumber(buttonModel = buttons[10])
+                        MainNumber(buttonModel = buttons[13])
+                        MainNumber(buttonModel = buttons[16])
+                        MainNumber(buttonModel = buttons[19])
+                        MainNumber(buttonModel = buttons[22])
+                        MainNumber(buttonModel = buttons[25])
+                        MainNumber(buttonModel = buttons[28])
+                        MainNumber(buttonModel = buttons[31])
+                        MainNumber(buttonModel = buttons[34])
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) { // third row
+                        MainNumber(buttonModel = buttons[0])
+                        MainNumber(buttonModel = buttons[3])
+                        MainNumber(buttonModel = buttons[6])
+                        MainNumber(buttonModel = buttons[9])
+                        MainNumber(buttonModel = buttons[12])
+                        MainNumber(buttonModel = buttons[15])
+                        MainNumber(buttonModel = buttons[18])
+                        MainNumber(buttonModel = buttons[21])
+                        MainNumber(buttonModel = buttons[24])
+                        MainNumber(buttonModel = buttons[27])
+                        MainNumber(buttonModel = buttons[30])
+                        MainNumber(buttonModel = buttons[33])
+                    }
+                    Row() {// 1_12, 13_24, 25_36
+                        MainNumber(
+                            buttonModel = buttons[38],
+                            Modifier
+                                .width(180.dp)
+                        )
+                        MainNumber(
+                            buttonModel = buttons[39],
+                            Modifier
+                                .width(180.dp)
+                        )
+                        MainNumber(
+                            buttonModel = buttons[40],
+                            Modifier
+                                .width(180.dp)
+                        )
+                    }
+
+                    Row() {// even red black odd
+                        MainNumber(
+                            buttonModel = buttons[43],
+                            Modifier
+                                .width(130.dp)
+                        )
+                        MainNumber(
+                            buttonModel = buttons[45],
+                            Modifier
+                                .width(130.dp)
+                        )
+                        MainNumber(
+                            buttonModel = buttons[46],
+                            Modifier
+                                .width(130.dp)
+                        )
+                        MainNumber(
+                            buttonModel = buttons[44],
+                            Modifier
+                                .width(130.dp)
+                        )
+                    }
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    MainNumber(
+                        buttonModel = buttons[47],
+                        Modifier
+                            .width(80.dp)
+                            .padding(start = 5.dp)
+                            .clickable(enabled = false) {}
+                    ) // first row
+                    MainNumber(
+                        buttonModel = buttons[48],
+                        Modifier
+                            .width(80.dp)
+                            .padding(start = 5.dp)
+                            .clickable(enabled = false) {}
+                    ) // second row
+                    MainNumber(
+                        buttonModel = buttons[49],
+                        Modifier
+                            .width(80.dp)
+                            .padding(start = 5.dp)
+                            .clickable(enabled = false) {}
+                    ) //third row
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.Center)
-                    )
+                            .clickable { showDialog = true }
+                            .background(DarkGreen, RoundedCornerShape(20))
+                            .border(
+                                width = 2.dp,
+                                color = Color.White,
+                                shape = RoundedCornerShape(5.dp),
+                            )
+                            .padding(start = 8.dp, end = 8.dp)
+                            .wrapContentWidth()
+                            .width(80.dp)
+                            .height(40.dp)
+                    ) {
+                        Text(
+                            text = "CLEAR",
+                            color = Color.White,
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                        )
+                    }
                 }
             }
         }
-    }
 
 
     @Preview

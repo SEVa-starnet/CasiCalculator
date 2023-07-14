@@ -3,21 +3,21 @@ package com.seva.starnet.casicalculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +30,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.seva.starnet.casicalculator.data.DataSource
@@ -52,7 +51,10 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier
                         .fillMaxSize()
-                        .paint(painterResource(id = R.drawable.backgroung_image), contentScale = ContentScale.Fit)
+                        .paint(
+                            painterResource(id = R.drawable.backgroung_image),
+                            contentScale = ContentScale.Fit
+                        )
                 ) {
                     CasiCalulatorApp()
                 }
@@ -79,7 +81,10 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun MainGrid(buttons: List<ButtonModel>) {
-        Row {
+        Row(
+            modifier = Modifier
+                .padding(start = 5.dp, end = 5.dp),
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxHeight(),
@@ -109,17 +114,19 @@ class MainActivity : ComponentActivity() {
                     MainNumber(
                         buttonModel = buttons[41],
                         Modifier
-                            .width(350.dp)
+                            .width(280.dp)
                             .clickable(enabled = false) {}
                     ) // 1 to 18
                     MainNumber(
                         buttonModel = buttons[42],
                         Modifier
-                            .width(350.dp)
+                            .width(280.dp)
                             .clickable(enabled = false) {}
                     ) // 19 to 36
                 }
-                Row() { // first row
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) { // first row
                     MainNumber(buttonModel = buttons[2])
                     MainNumber(buttonModel = buttons[5])
                     MainNumber(buttonModel = buttons[8])
@@ -133,7 +140,9 @@ class MainActivity : ComponentActivity() {
                     MainNumber(buttonModel = buttons[32])
                     MainNumber(buttonModel = buttons[35])
                 }
-                Row() { // second row
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) { // second row
                     MainNumber(buttonModel = buttons[1])
                     MainNumber(buttonModel = buttons[4])
                     MainNumber(buttonModel = buttons[7])
@@ -147,7 +156,9 @@ class MainActivity : ComponentActivity() {
                     MainNumber(buttonModel = buttons[31])
                     MainNumber(buttonModel = buttons[34])
                 }
-                Row() { // third row
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) { // third row
                     MainNumber(buttonModel = buttons[0])
                     MainNumber(buttonModel = buttons[3])
                     MainNumber(buttonModel = buttons[6])
@@ -165,17 +176,17 @@ class MainActivity : ComponentActivity() {
                     MainNumber(
                         buttonModel = buttons[38],
                         Modifier
-                            .width(230.dp)
+                            .width(180.dp)
                     )
                     MainNumber(
                         buttonModel = buttons[39],
                         Modifier
-                            .width(240.dp)
+                            .width(180.dp)
                     )
                     MainNumber(
                         buttonModel = buttons[40],
                         Modifier
-                            .width(230.dp)
+                            .width(180.dp)
                     )
                 }
 
@@ -183,22 +194,22 @@ class MainActivity : ComponentActivity() {
                     MainNumber(
                         buttonModel = buttons[43],
                         Modifier
-                            .width(175.dp)
+                            .width(130.dp)
                     )
                     MainNumber(
                         buttonModel = buttons[45],
                         Modifier
-                            .width(175.dp)
+                            .width(130.dp)
                     )
                     MainNumber(
                         buttonModel = buttons[46],
                         Modifier
-                            .width(175.dp)
+                            .width(130.dp)
                     )
                     MainNumber(
                         buttonModel = buttons[44],
                         Modifier
-                            .width(175.dp)
+                            .width(130.dp)
                     )
                 }
             }
@@ -228,6 +239,27 @@ class MainActivity : ComponentActivity() {
                         .padding(start = 5.dp)
                         .clickable(enabled = false) {}
                 ) //third row
+                Box(
+                    modifier = Modifier
+                        .clickable { viewModel?.clearClick() }
+                        .background(DarkGreen, RoundedCornerShape(20))
+                        .border(
+                            width = 2.dp,
+                            color = Color.White,
+                            shape = RoundedCornerShape(5.dp),
+                        )
+                        .padding(start = 8.dp, end = 8.dp)
+                        .wrapContentWidth()
+                        .width(80.dp)
+                        .height(40.dp)
+                ) {
+                    Text(
+                        text = "CLEAR",
+                        color = Color.White,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                    )
+                }
             }
         }
     }
@@ -237,7 +269,11 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun MainNumberPreview() {
         MainNumber(
-            buttonModel = ButtonModel(buttonId = ButtonId.BUTTON_2, color = ButtonColor.RED),
+            buttonModel = ButtonModel(
+                buttonId = ButtonId.BUTTON_2,
+                color = ButtonColor.RED,
+                percent = 10.256
+            ),
             modifier = Modifier
         )
     }
@@ -253,17 +289,28 @@ class MainActivity : ComponentActivity() {
         if (buttonModel.color == ButtonColor.RED) {
             backgroundColor = Color.Red
         }
-        Button(
-            colors = ButtonDefaults.buttonColors(backgroundColor),
-            onClick = { viewModel?.newClick(buttonModel) },
-            shape = RoundedCornerShape(2),
-            modifier = modifier
+        Box(
+            modifier = Modifier
+                .clickable { viewModel?.newClick(buttonModel) }
+                .background(backgroundColor, RoundedCornerShape(20))
                 .border(
                     width = 2.dp,
                     color = textColor,
-                    shape = RoundedCornerShape(5.dp)
-                ),
-            contentPadding = PaddingValues(0.dp)
+                    shape = RoundedCornerShape(5.dp),
+                )
+                .widthIn(min = 50.dp)
+                .padding(start = 8.dp, end = 8.dp)
+                .wrapContentWidth()
+                .then(modifier)
+//        )
+//        Button(
+//            colors = ButtonDefaults.buttonColors(backgroundColor),
+//            onClick = { viewModel?.newClick(buttonModel) },
+//            shape = RoundedCornerShape(2),
+//            modifier = modifier
+//
+//                .widthIn(min = 0.dp),
+//            contentPadding = PaddingValues(0.dp)
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -273,9 +320,6 @@ class MainActivity : ComponentActivity() {
                 Text(
                     text = buttonModel.buttonId.uiName,
                     color = textColor
-                )
-                Spacer(
-                    modifier = Modifier.height(Dp("5".toFloat()))
                 )
                 Text(
                     text = buttonModel.clicks.toString(),

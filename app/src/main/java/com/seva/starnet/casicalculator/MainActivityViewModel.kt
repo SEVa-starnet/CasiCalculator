@@ -204,4 +204,11 @@ class MainActivityViewModel : BaseViewModel() {
         proceedPercents(null)
         return localListShot!!
     }
+
+    fun clearClick() {
+        localListShot = loadButtons()
+        for (i in 0 until localListShot!!.size) {
+            updateButton(i, localListShot!![i].clicks, localListShot!![i].percent)
+        }
+    }
 }
